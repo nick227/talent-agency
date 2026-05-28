@@ -1,0 +1,22 @@
+{
+  "name": "talent-app",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter web dev\"",
+    "build": "pnpm --filter server build && pnpm --filter web build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm --filter server test",
+    "sdk:generate": "pnpm --filter @talent/sdk generate",
+    "sdk:check": "tsx scripts/check-sdk-drift.ts",
+    "db:push": "pnpm --filter @talent/db db:push",
+    "db:studio": "pnpm --filter @talent/db db:studio",
+    "db:seed": "pnpm --filter @talent/db db:seed",
+    "bootstrap": "pnpm install && pnpm db:push && pnpm sdk:generate && pnpm db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

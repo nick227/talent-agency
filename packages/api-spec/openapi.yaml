@@ -1,0 +1,709 @@
+openapi: 3.1.0
+info:
+  title: TALENT/AGENCY API
+  version: 0.0.1
+
+servers:
+  - url: http://localhost:3001
+    description: Local dev
+
+security:
+  - bearerAuth: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    adminAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    PaginatedMeta:
+      type: object
+      required: [hasMore, nextCursor]
+      properties:
+        hasMore: { type: boolean }
+        nextCursor:
+          type: string
+          nullable: true
+
+    UserRole:
+      type: string
+      enum: [ADMIN, PERFORMER]
+
+    PerformerCategory:
+      type: string
+      enum: [ACTOR, MODEL, DANCER, MUSICIAN, COMEDIAN, HOST, INFLUENCER, OTHER]
+
+    MediaType:
+      type: string
+      enum: [PHOTO, VIDEO]
+
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string }
+
+    AuthUser:
+      type: object
+      required: [id, email, role, createdAt]
+      properties:
+        id: { type: string }
+        email: { type: string }
+        role: { $ref: '#/components/schemas/UserRole' }
+        createdAt: { type: string, format: date-time }
+
+    AuthResponse:
+      type: object
+      required: [data]
+      properties:
+        data: { $ref: '#/components/schemas/AuthUser' }
+
+    MediaItem:
+      type: object
+      required: [id, url, mimeType, type, order, createdAt]
+      properties:
+        id: { type: string }
+        url: { type: string }
+        key: { type: string }
+        mimeType: { type: string }
+        type: { $ref: '#/components/schemas/MediaType' }
+        caption:
+          type: string
+          nullable: true
+        order: { type: integer }
+        createdAt: { type: string, format: date-time }
+
+    PerformerProfile:
+      type: object
+      required: [id, displayName, category, isPublished, isFeatured, mediaItems, createdAt]
+      properties:
+        id: { type: string }
+        displayName: { type: string }
+        bio:
+          type: string
+          nullable: true
+        headshotUrl:
+          type: string
+          nullable: true
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location:
+          type: string
+          nullable: true
+        age:
+          type: integer
+          nullable: true
+        height:
+          type: string
+          nullable: true
+        weight:
+          type: string
+          nullable: true
+        measurements:
+          type: string
+          nullable: true
+        shoeSize:
+          type: string
+          nullable: true
+        hairColor:
+          type: string
+          nullable: true
+        eyeColor:
+          type: string
+          nullable: true
+        isPublished: { type: boolean }
+        isFeatured: { type: boolean }
+        mediaItems:
+          type: array
+          items: { $ref: '#/components/schemas/MediaItem' }
+        _count:
+          type: object
+          properties:
+            inquiries: { type: integer }
+        createdAt: { type: string, format: date-time }
+
+    PerformerProfileSummary:
+      type: object
+      required: [id, displayName, category, isPublished, isFeatured]
+      properties:
+        id: { type: string }
+        displayName: { type: string }
+        headshotUrl:
+          type: string
+          nullable: true
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location:
+          type: string
+          nullable: true
+        isPublished: { type: boolean }
+        isFeatured: { type: boolean }
+
+    CreatePerformerInput:
+      type: object
+      required: [email, password, displayName, category]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8 }
+        displayName: { type: string, minLength: 1, maxLength: 100 }
+        bio: { type: string }
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location: { type: string }
+        age: { type: integer, minimum: 16, maximum: 100 }
+        height: { type: string }
+        weight: { type: string }
+        measurements: { type: string }
+        shoeSize: { type: string }
+        hairColor: { type: string }
+        eyeColor: { type: string }
+
+    UpdatePerformerInput:
+      type: object
+      properties:
+        displayName: { type: string, minLength: 1, maxLength: 100 }
+        bio: { type: string }
+        headshotUrl: { type: string }
+        headshotKey: { type: string }
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location: { type: string }
+        age: { type: integer, minimum: 16, maximum: 100 }
+        height: { type: string }
+        weight: { type: string }
+        measurements: { type: string }
+        shoeSize: { type: string }
+        hairColor: { type: string }
+        eyeColor: { type: string }
+        isPublished: { type: boolean }
+        isFeatured: { type: boolean }
+
+    SubmitInquiryInput:
+      type: object
+      required: [name, email, projectType, message]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 100 }
+        email: { type: string, format: email }
+        projectType: { type: string, minLength: 1, maxLength: 50 }
+        message: { type: string, minLength: 10, maxLength: 2000 }
+
+    CastingInquiry:
+      type: object
+      required: [id, performerProfileId, name, email, projectType, message, createdAt]
+      properties:
+        id: { type: string }
+        performerProfileId: { type: string }
+        performerDisplayName: { type: string }
+        name: { type: string }
+        email: { type: string }
+        projectType: { type: string }
+        message: { type: string }
+        createdAt: { type: string, format: date-time }
+
+    AddMediaInput:
+      type: object
+      required: [url, key, mimeType, type]
+      properties:
+        url: { type: string }
+        key: { type: string }
+        mimeType: { type: string }
+        type: { $ref: '#/components/schemas/MediaType' }
+        caption: { type: string }
+        order: { type: integer }
+
+    UpdateMediaInput:
+      type: object
+      properties:
+        caption: { type: string }
+        order: { type: integer }
+
+    MediaResult:
+      type: object
+      required: [url, key, mimeType, size]
+      properties:
+        url: { type: string }
+        key: { type: string }
+        mimeType: { type: string }
+        size: { type: integer, description: File size in bytes }
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+        code: { type: string }
+
+  parameters:
+    Cursor:
+      in: query
+      name: cursor
+      schema: { type: string }
+      description: Opaque cursor from previous page.
+    Limit:
+      in: query
+      name: limit
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    SearchQuery:
+      in: query
+      name: q
+      schema: { type: string, maxLength: 200 }
+
+  responses:
+    Unauthorized:
+      description: Not authenticated
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    Forbidden:
+      description: Not authorized
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+paths:
+  /auth/login:
+    post:
+      operationId: login
+      security: []
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LoginInput' }
+      responses:
+        '200':
+          description: Authenticated — session token delivered via Set-Cookie (httpOnly)
+          headers:
+            Set-Cookie:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AuthResponse' }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      responses:
+        '200':
+          description: Logged out — clears session cookie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    type: string
+
+  /auth/me:
+    get:
+      operationId: getCurrentUser
+      tags: [auth]
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AuthResponse' }
+
+  /performers:
+    get:
+      operationId: listPerformers
+      security: []
+      tags: [performers]
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchQuery'
+        - in: query
+          name: category
+          schema: { $ref: '#/components/schemas/PerformerCategory' }
+        - in: query
+          name: location
+          schema: { type: string }
+      responses:
+        '200':
+          description: Published performers
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, meta]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/PerformerProfileSummary' }
+                  meta: { $ref: '#/components/schemas/PaginatedMeta' }
+
+  /performers/me:
+    get:
+      operationId: getMyPerformerProfile
+      tags: [performers]
+      responses:
+        '200':
+          description: Performer's own profile with media and inquiry count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+
+  /performers/{performerId}:
+    get:
+      operationId: getPerformer
+      security: []
+      tags: [performers]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Performer profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /performers/{performerId}/inquiries:
+    post:
+      operationId: submitInquiry
+      security: []
+      tags: [inquiries]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SubmitInquiryInput' }
+      responses:
+        '201':
+          description: Inquiry submitted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/CastingInquiry' }
+
+  /media/upload:
+    post:
+      operationId: uploadMedia
+      tags: [media]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/MediaResult' }
+        '413':
+          description: File too large
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+        '415':
+          description: Unsupported file type
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+  /media/{key}:
+    delete:
+      operationId: deleteMedia
+      tags: [media]
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    type: string
+
+  /admin/performers:
+    get:
+      operationId: adminListPerformers
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchQuery'
+        - in: query
+          name: category
+          schema: { $ref: '#/components/schemas/PerformerCategory' }
+      responses:
+        '200':
+          description: All performers (incl. unpublished)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, meta]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/PerformerProfile' }
+                  meta: { $ref: '#/components/schemas/PaginatedMeta' }
+    post:
+      operationId: adminCreatePerformer
+      security:
+        - adminAuth: []
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreatePerformerInput' }
+      responses:
+        '201':
+          description: Performer created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+
+  /admin/performers/{performerId}:
+    get:
+      operationId: adminGetPerformer
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Performer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+    patch:
+      operationId: adminUpdatePerformer
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdatePerformerInput' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+    delete:
+      operationId: adminDeletePerformer
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    type: string
+
+  /admin/performers/{performerId}/media:
+    post:
+      operationId: adminAddMedia
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddMediaInput' }
+      responses:
+        '201':
+          description: Media item added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/MediaItem' }
+
+  /admin/performers/{performerId}/media/{mediaId}:
+    patch:
+      operationId: adminUpdateMedia
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: mediaId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateMediaInput' }
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/MediaItem' }
+    delete:
+      operationId: adminDeleteMedia
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+        - in: path
+          name: mediaId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    nullable: true
+                    type: string
+
+  /admin/inquiries:
+    get:
+      operationId: adminListInquiries
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+        - in: query
+          name: performerId
+          schema: { type: string }
+      responses:
+        '200':
+          description: All inquiries
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, meta]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/CastingInquiry' }
+                  meta: { $ref: '#/components/schemas/PaginatedMeta' }
+
+  /admin/performers/{performerId}/inquiries:
+    get:
+      operationId: adminListPerformerInquiries
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: Performer inquiries
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data, meta]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/CastingInquiry' }
+                  meta: { $ref: '#/components/schemas/PaginatedMeta' }

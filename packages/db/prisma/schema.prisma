@@ -1,0 +1,124 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  ADMIN
+  PERFORMER
+}
+
+enum PerformerCategory {
+  ACTOR
+  MODEL
+  DANCER
+  MUSICIAN
+  COMEDIAN
+  HOST
+  INFLUENCER
+  OTHER
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  role         UserRole  @default(PERFORMER)
+  suspendedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  performerProfile PerformerProfile?
+  sessions         Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([token])
+  @@index([userId])
+}
+
+model PerformerProfile {
+  id          String            @id @default(cuid())
+  userId      String            @unique
+  user        User              @relation(fields: [userId], references: [id])
+
+  displayName String
+  bio         String?           @db.Text
+  headshotUrl String?
+  headshotKey String?
+
+  category    PerformerCategory @default(OTHER)
+  location    String?
+  age         Int?
+  height      String?
+  weight      String?
+  measurements String?
+  shoeSize    String?
+  hairColor   String?
+  eyeColor    String?
+
+  isPublished Boolean          @default(false)
+  isFeatured  Boolean          @default(false)
+
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
+
+  mediaItems  MediaItem[]
+  inquiries   CastingInquiry[]
+
+  @@index([isPublished, createdAt])
+  @@index([category])
+  @@index([location])
+}
+
+model MediaItem {
+  id                 String           @id @default(cuid())
+  performerProfileId String
+  performerProfile   PerformerProfile @relation(fields: [performerProfileId], references: [id], onDelete: Cascade)
+
+  url                String
+  key                String           @unique
+  mimeType           String
+  type               MediaType
+  caption            String?
+  order              Int              @default(0)
+
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+
+  @@index([performerProfileId, order])
+}
+
+model CastingInquiry {
+  id                 String           @id @default(cuid())
+  performerProfileId String
+  performerProfile   PerformerProfile @relation(fields: [performerProfileId], references: [id])
+
+  name               String
+  email              String
+  projectType        String
+  message            String           @db.Text
+
+  createdAt          DateTime         @default(now())
+
+  @@index([performerProfileId, createdAt])
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TALENT_INDEX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1b1b1b",
+                        "surface": "#f9f9f9",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#848484",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-surface-variant": "#4c4546",
+                        "on-primary-container": "#848484",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "inverse-surface": "#303030",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface-tint": "#5e5e5e",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#464747",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#626262",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary": "#000000",
+                        "surface-container": "#eeeeee",
+                        "primary-container": "#1b1b1b",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-background": "#1b1b1b",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "outline-variant": "#cfc4c5",
+                        "outline": "#7e7576",
+                        "primary-fixed": "#e2e2e2",
+                        "secondary": "#5e5e5e",
+                        "background": "#f9f9f9",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-primary": "#c6c6c6",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#1b1b1b",
+                        "on-primary-fixed": "#1b1b1b",
+                        "secondary-fixed": "#e4e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#000000",
+                        "secondary-container": "#e1dfdf",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "inverse-on-surface": "#f1f1f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "sm": "8px",
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["Hanken Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "display-xl": ["80px", {"lineHeight": "88px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .invert-hover:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        .border-strict {
+            border: 1px solid #000000;
+        }
+        .border-b-strict {
+            border-bottom: 1px solid #000000;
+        }
+        .border-t-strict {
+            border-top: 1px solid #000000;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface dark:bg-primary-container border-b border-primary dark:border-on-primary z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 max-w-[1200px] mx-auto">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary dark:text-on-primary">grid_view</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-on-primary">TALENT_INDEX</h1>
+</div>
+<nav class="hidden md:flex gap-lg">
+<a class="text-primary dark:text-on-primary font-bold underline decoration-2 underline-offset-4 font-label-mono text-label-mono" href="#">HOME</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-on-primary font-label-mono text-label-mono transition-colors duration-100" href="#">ROSTER</a>
+<a class="text-on-surface-variant dark:text-on-tertiary-container hover:text-primary dark:hover:text-on-primary font-label-mono text-label-mono transition-colors duration-100" href="#">SUBMISSIONS</a>
+</nav>
+<button class="font-label-mono text-label-mono font-bold px-md py-xs border border-primary hover:bg-primary hover:text-on-primary transition-colors duration-100">LOGIN</button>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row min-h-[80vh] items-center gap-xl py-xl overflow-hidden">
+<div class="w-full md:w-1/2 flex flex-col justify-center order-2 md:order-1">
+<h2 class="font-display-xl text-display-xl leading-none tracking-tighter mb-md">
+                    TALENT<br/>/ INDEX
+                </h2>
+<p class="font-body-lg text-body-lg max-w-md mb-xl text-on-surface-variant">
+                    A global standard for elite representation. Precision-curated roster of commercial and theatrical artists for the modern high-density production era.
+                </p>
+<div class="flex flex-col sm:flex-row gap-md">
+<button class="bg-primary text-on-primary px-xl py-md font-label-mono text-label-mono uppercase tracking-widest active:opacity-80 transition-all">View Roster</button>
+<button class="border border-primary text-primary px-xl py-md font-label-mono text-label-mono uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all">Submit Portfolio</button>
+</div>
+</div>
+<div class="w-full md:w-1/2 h-[500px] md:h-[700px] border-strict overflow-hidden order-1 md:order-2">
+<img alt="Main Talent Spotlight" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXFx4od0SNupPiscB04aYv0y3i-LF46fyiaMPuavo0ImWt10pdkDskJIHanWxOdeWoEV0MvYP7l3s45upgf0I85oMWsiBBi4LcJunFRyR-fOOebg2xMwYz7HVO-xtheVfQ5F46nl_D9-cFPfgx4ENnj0wlA4TzdX_sDbb3VdNALj-idZPRVi-lbyO6V_I6K9Bswmxz-wuJEXW3NIxJxxOV-9SNyuHVOhWd9Ln90-RoJc6_wN3YFKKZFGt-C8bwx2qesx3Xk4U3PVk"/>
+</div>
+</section>
+<!-- Stats / Identity Block -->
+<section class="grid grid-cols-2 md:grid-cols-4 border-t-strict border-b-strict mb-xl">
+<div class="p-lg border-r border-primary">
+<p class="font-label-mono text-label-mono uppercase mb-sm">Artists</p>
+<p class="font-headline-md text-headline-md">482</p>
+</div>
+<div class="p-lg border-r border-primary">
+<p class="font-label-mono text-label-mono uppercase mb-sm">Offices</p>
+<p class="font-headline-md text-headline-md">NYC / LDN</p>
+</div>
+<div class="p-lg border-r border-primary">
+<p class="font-label-mono text-label-mono uppercase mb-sm">Active</p>
+<p class="font-headline-md text-headline-md">24/7</p>
+</div>
+<div class="p-lg">
+<p class="font-label-mono text-label-mono uppercase mb-sm">Established</p>
+<p class="font-headline-md text-headline-md">2012</p>
+</div>
+</section>
+<!-- Utilitarian Roster Preview -->
+<section class="py-xl">
+<div class="flex justify-between items-end mb-lg">
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase tracking-tight">Current Roster</h3>
+<a class="font-label-mono text-label-mono underline mb-xs" href="#">See Full List</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-strict border-l-strict">
+<!-- Artist Item 1 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="Close-up professional headshot of a diverse male actor with intense gaze, shot in a minimalist studio against a stark white background. Sharp focus on eyes, dramatic high-contrast lighting, 35mm film aesthetic, monochrome tones with pure black shadows and clean white highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe0YX6njSoah8svx1Svzz83lRf56rUVjHb3Phyq17XEyOe7uPngGC719jTwNPWLtKDu-7jMYfE924GS1BlcN6D8bJ7wXWZSUJePVyzm_FzxSnkAgdMHcK35yeTrZEQXE_tk-zWSypn6ou3Ws4tZbFGqfVSDq3fCY3aX5gAVLf7XjfeTZqglBEhp9euzEttzEJRhYleTE8YkqSaD3_QtmGcWwkhgEaojV886zqIHSEuzhbYsuUgngpoGteuSYe71X5UPVldhDNMfH8"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">ALEXA VANCE</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">ACTOR / FILM</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+<!-- Artist Item 2 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="High-fashion commercial headshot of a young woman with architectural jewelry and sharp features. The lighting is direct and surgical, creating a modern minimalist look. Background is a neutral light grey, emphasizing the subject's silhouette and clean black attire. High-end professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmDlrhPfpBhbLZmS7Iu_9Q3_PlTEsH3WEUgStmNJb2R2r_hoNKFXUb8PfSNFXeMij7_6PR2I7jwmZBYLR0ovta3hUrnLL0LafnjypEcMp_ytcnYxn7j2m6CGBYjUu5_mMA2WNcHYeQ4JfuPoFK2BGynQgs4QfPkgVsasTteJZ8VJs_XsjUBdIp0o3ypETXPPD1mSDrjZR0CvprziI_Qx8JDLRZSuP47lAppgS3sMzsyv3MqTyWhpfXENrJADWbrIcOr2NootZob2o"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">JULIAN KANE</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">DIRECTOR / SFX</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+<!-- Artist Item 3 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="Crisp, clear headshot of an older male artist with graying hair and a confident smile. Minimalist studio setting with soft fill light to eliminate shadows. The style is professional and corporate yet artistic, utilizing a high-contrast black and white palette to maintain the agency's brutalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfgVdsDjcDj8b4xDfdKuE1zWl94EB4hKhH9QMSJiy8sfAEwsWYifVlYOhdReF_RomA7R9cp_aJ6mcuo_hjAlgPkDnO-ylobfDOmQS46hhmJ2sv-Mdwp3-Gw5IIDaqxA-cu6tvaw_Ey52N4zZoCWa8SvnTAz7l3JP-EJPbX9xTTLzi6Se9VgUJ4JtiIuWti0FUEOpzONlsOX3j-UsYbiJmDw6d25AjX0-_klZ9UszB-J4i9BOLeTK-LoS4vR2NcFHaRZ38M9Xw2LlA"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">MARCUS REED</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">TALENT / VO</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+<!-- Artist Item 4 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="Symmetric portrait of a creative professional with glasses, looking directly into the camera. Background is a solid, untextured white wall. The mood is intellectual and precise, captured with a shallow depth of field. Visual style is characterized by sharp lines and a binary color scheme of pure black and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn19qUd-D0spvJ1la22JpqbbaUTqcoCCHbDOK84dadYo5rjUMu0bqe3xZVnp3c_wzgQ9LwXcQ3ClbOQcMEscC4LVF8iVrnq55TKqaJc_ZVYXw5Dsu4izrcUG5HP4SLLHjCk1rS6f89W_SfBkNV6F3jLKrpz3gAdPDud3hALI8aZY2kWg9iFUWI9cXWByIDK6exbZ5bIfK5TBkPYoZC4oORivX_SV7KkhBg608sw6VGW59akqxg3j33sRv59RwKBc1QdpIRIfCyidc"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">SOPHIE CHEN</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">WRITER / SCRIPT</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+<!-- Artist Item 5 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="Elegant profile headshot of a female performer, showcasing a dynamic silhouette against a bright white background. Lighting is high-key and flat to emphasize form over texture. The aesthetic is clean and corporate, adhering to a minimalist design philosophy with no decorative elements or shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP6vEuLamTSKUPLWexfILvyrd897Sm4FpS2N4SSNfFXHNsMiKPsaggfY8jftAAsngGAklvfA_IhArqBExVqIqw80RYgitZVMxxfGWf6oyQYRvd4fo1W79XElrTva-4GacJLGgVD1vOKOSm6VQFYkRzGY84YBH5PGaiUDiQ_RO4nBKsyQsu_8Ft1XRuRtYQ1mAi2wF670Mdz6kP9BB8Yqwy-l31yK6uo8eCwCHdzeliVPIYH5k9c_9fdrgfzBa7NARBH9ibOSGy9yo"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">ELARA MORAN</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">TALENT / COMMS</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+<!-- Artist Item 6 -->
+<div class="border-b-strict border-r-strict p-lg flex items-center justify-between group hover:bg-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-md">
+<div class="w-16 h-20 border-strict overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover grayscale" data-alt="Strong, frontal headshot of a male model with sharp jawline and focused expression. Studio lighting is neutral and even, avoiding dramatic shadows. Background is a clinical white. The photo is styled for a high-end talent directory, maintaining a consistent minimalist and high-contrast appearance throughout the gallery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfVXK4Y-RicpMplhxl5s0S6d7De9QAXL7z03zP_gGLYW25IrZAROk2HTHpS-2jj_OGEMj1R2qsK13y1pouT3w222PaMEha-PG9x5cddcLMWxkCUQEuLspFSrr-KFF2mGBdHZkT3YoikVHyIT8KSp71aJtIuNApIBeTsG4WfxD21nJKNWBoSOtnpumUsd_S8FtcymuUrBk3dK5f6HQOuFaidedUFrwG3i6jI1TEVCn1M2bM0z3ertFlJ2-9cF7IwN1pc4z2daERHd4"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md group-hover:text-on-primary">DAVID PARK</p>
+<p class="font-label-mono text-label-mono text-on-surface-variant group-hover:text-on-primary">PRODUCTION / DP</p>
+</div>
+</div>
+<span class="material-symbols-outlined group-hover:text-on-primary">north_east</span>
+</div>
+</div>
+</section>
+<!-- Inquiry Form -->
+<section class="py-xl mb-xl">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<div>
+<h3 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase mb-md">Contact /<br/>Inquiry</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm">
+                        Submit a project brief or roster inquiry. Our response time is typically under 4 hours for verified production houses.
+                    </p>
+<div class="mt-lg font-label-mono text-label-mono">
+<p class="mb-sm">INFO@TALENTINDEX.COM</p>
+<p>+1 212 555 0198</p>
+</div>
+</div>
+<div class="flex flex-col gap-lg">
+<div class="border-b-strict py-sm">
+<label class="font-label-mono text-label-mono uppercase block mb-xs">Full Name</label>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-md placeholder:text-on-tertiary-container" placeholder="REQUIRED" type="text"/>
+</div>
+<div class="border-b-strict py-sm">
+<label class="font-label-mono text-label-mono uppercase block mb-xs">Email Address</label>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-md placeholder:text-on-tertiary-container" placeholder="REQUIRED" type="email"/>
+</div>
+<div class="border-b-strict py-sm">
+<label class="font-label-mono text-label-mono uppercase block mb-xs">Inquiry Type</label>
+<select class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-md appearance-none">
+<option>PRODUCTION HIRE</option>
+<option>REPRESENTATION SUBMISSION</option>
+<option>PRESS / MEDIA</option>
+</select>
+</div>
+<div class="border-b-strict py-sm">
+<label class="font-label-mono text-label-mono uppercase block mb-xs">Message</label>
+<textarea class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-md resize-none placeholder:text-on-tertiary-container" placeholder="OPTIONAL" rows="2"></textarea>
+</div>
+<button class="bg-primary text-on-primary w-full py-md font-label-mono text-label-mono uppercase tracking-widest hover:opacity-90 transition-opacity">Send Inquiry</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface dark:bg-primary-container border-t border-primary dark:border-on-primary">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-xl max-w-[1200px] mx-auto gap-lg">
+<div class="font-label-mono text-label-mono font-bold text-primary dark:text-on-primary">
+                TALENT_INDEX
+            </div>
+<div class="flex flex-wrap justify-center gap-md md:gap-lg">
+<a class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container hover:underline decoration-1 underline-offset-2" href="#">ROSTER</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container hover:underline decoration-1 underline-offset-2" href="#">SUBMISSIONS</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container hover:underline decoration-1 underline-offset-2" href="#">ABOUT</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container hover:underline decoration-1 underline-offset-2" href="#">LEGAL</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant dark:text-on-tertiary-container">
+                ©2024 TALENT_INDEX. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for active states
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') e.preventDefault();
+            });
+        });
+
+        // Sticky header opacity effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-opacity-95', 'backdrop-blur-sm');
+            } else {
+                header.classList.remove('bg-opacity-95', 'backdrop-blur-sm');
+            }
+        });
+    </script>
+</body></html>

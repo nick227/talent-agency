@@ -1,0 +1,7 @@
+{
+  "name": "@talent/api-spec",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./openapi.yaml"
+  }
+}

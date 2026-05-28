@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 11%;
+
+    --surface: 0 0% 97%;
+    --surface-foreground: 0 0% 40%;
+
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 30%;
+
+    --accent: 0 0% 0%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 0 0% 0%;
+    --input-border: 0 0% 0%;
+    --ring: 0 0% 0%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+
+    --radius: 0;
+    --radius-sm: 0;
+    --radius-lg: 0;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  img {
+    display: block;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tracking-agency {
+    letter-spacing: 0.05em;
+  }
+
+  .tracking-tight-display {
+    letter-spacing: -0.04em;
+  }
+}

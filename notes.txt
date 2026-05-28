@@ -1,0 +1,210 @@
+# Proposal: TALENT / AGENCY Website
+
+## Concept
+
+TALENT / AGENCY will be a highly visual, chromeless website for a modern roster of represented online artists.
+
+The site should not feel like a social network, creator marketplace, casting database, or SaaS product. It should feel like an agency with taste: selective, minimal, image-led, and built around the people it represents.
+
+The main purpose is simple:
+
+**Show the roster. Feature the artists. Provide links. Route serious inquiries through the agency.**
+
+## Brand Direction
+
+The name TALENT / AGENCY works because it is direct, minimal, and almost anti-brand. It turns a generic phrase into a visual identity.
+
+The brand should be presented bluntly and confidently:
+
+**TALENT**
+**AGENCY**
+
+or
+
+**TALENT / AGENCY**
+
+The site should use the name as a design object: large type, sharp layouts, simple language, and strong visual contrast. The brand should not over-explain itself. It should feel like a cool office, a roster wall, a gallery, and an editorial platform at the same time.
+
+Suggested positioning line:
+
+**A visual roster of represented online artists.**
+
+## Design Direction
+
+The site should be very visual and nearly chromeless. The interface should get out of the way so the artists become the experience.
+
+Design priorities:
+
+* large artist imagery
+* minimal navigation
+* oversized typography
+* dark editorial backgrounds
+* soft motion
+* clean profile layouts
+* full-screen or near full-screen artist features
+* simple links instead of overbuilt tools
+* strong mobile browsing
+* no cluttered cards
+* no dashboard feeling
+* no fake social media behavior
+
+The visual reference should be closer to a fashion label, record label, gallery, film studio, or art magazine than a traditional talent agency website.
+
+The homepage should immediately feel curated. It should open with a strong artist feature, rotating roster visuals, bold names, and a direct path into the roster.
+
+## Core Experience
+
+The site should have a very simple flow:
+
+1. Visitor lands on a striking visual homepage.
+2. Visitor enters the roster.
+3. Visitor browses represented artists.
+4. Visitor opens an artist page.
+5. Visitor clicks external links or sends an inquiry through the agency.
+
+The site does not need user accounts, public posting, direct messaging, media kit downloads, or creator-platform features.
+
+This is not another place for artists to “build a profile.”
+This is the official roster for people the agency represents.
+
+## Roster Page
+
+The roster page is the heart of the website.
+
+It should be image-first, fast, and elegant. Artists should appear in a visual layout that feels curated rather than database-driven.
+
+Possible roster treatments:
+
+* full-screen visual grid
+* large portrait tiles
+* alternating image sizes
+* hover or tap name reveals
+* quick category tags
+* simple search
+* minimal filters
+* featured artist rows
+* new additions
+* agency picks
+* currently active / booking highlights
+
+Filtering should exist only as a convenience. The main feeling should still be browsing a curated roster, not operating software.
+
+## Artist Pages
+
+Each artist page should be focused, beautiful, and link-forward.
+
+An artist page should include:
+
+* artist name
+* hero image or featured visual
+* short agency-written bio
+* selected visuals
+* selected work links
+* social links
+* video/music/platform links where relevant
+* credits or notable highlights
+* inquiry button
+* agency contact path
+
+The page should not try to replace the artist’s full internet presence. It should point outward clearly and tastefully.
+
+The artist page should answer:
+
+**Who is this?**
+**Why do they matter?**
+**Where can I see more?**
+**How do I inquire?**
+
+## Convenience Features
+
+The site should provide practical conveniences without becoming bloated.
+
+Recommended features:
+
+* clean artist search
+* simple roster filters
+* external link blocks
+* per-artist inquiry button
+* shareable artist URLs
+* featured roster controls
+* admin-editable artist profiles
+* homepage featured artist selection
+* highlight/news posts for recent work
+* optional private agency-created shortlists
+
+The key rule: every feature should support representation, discovery, or inquiry.
+
+No social feed.
+No public profiles.
+No follower mechanics.
+No creator dashboard energy on the public site.
+
+## Main Pages
+
+**Homepage**
+A bold visual introduction to TALENT / AGENCY, featuring the roster, selected artists, and a simple call to view the roster.
+
+**Roster**
+The central browsing experience for represented artists.
+
+**Artist Profile**
+A minimal, visual profile with selected work, links, short copy, and agency inquiry action.
+
+**Highlights**
+A curated section for recent work, bookings, releases, appearances, press, and agency updates.
+
+**About**
+A short agency statement focused on representation, taste, online culture, and the roster.
+
+**Contact / Inquiry**
+A direct inquiry form for bookings, collaborations, partnerships, press, and general contact.
+
+## Homepage Copy Direction
+
+Possible hero copy:
+
+**TALENT / AGENCY**
+**Representing artists online.**
+
+Supporting line:
+
+**A curated roster of creators, performers, and public personalities.**
+
+Primary actions:
+
+**View Roster**
+**Inquire**
+
+Alternative copy:
+
+**A visual roster of represented online artists.**
+**Built for discovery, links, and serious inquiries.**
+
+## Visual Tone
+
+The site should feel:
+
+* cool
+* sparse
+* visual
+* premium
+* internet-native
+* editorial
+* confident
+* selective
+* artist-centered
+* modern without being trendy
+
+The brand should be simple enough to grow. It can represent online creators now, while still leaving room for actors, musicians, comedians, filmmakers, writers, hosts, and other public-facing artists later.
+
+## Final Goal
+
+The final website will give TALENT / AGENCY a sharp, modern presence built around its roster.
+
+It will make the agency feel real, curated, and visually strong. It will make represented artists look important. It will give visitors a simple way to explore, follow links, and inquire.
+
+The site should say, without overexplaining:
+
+**These are our artists.
+This is our roster.
+Contact us if you want to work with them.**
