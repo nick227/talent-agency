@@ -18,7 +18,10 @@ function headshotUrl(seed: string) {
 
 async function wipePerformers() {
   // Delete in dependency order — children before parents
-  const [inquiries, media, profiles, users] = await db.$transaction([
+  const performerUsers = await db.user.findMany({ where: { role: 'PERFORMER' }, select: { id: true } })
+  const userIds = performerUsers.map((u) => u.id)
+  const [sessions, inquiries, media, profiles, users] = await db.$transaction([
+    db.session.deleteMany({ where: { userId: { in: userIds } } }),
     db.castingInquiry.deleteMany({}),
     db.mediaItem.deleteMany({}),
     db.performerProfile.deleteMany({}),
@@ -26,7 +29,7 @@ async function wipePerformers() {
   ])
   console.log(
     `  Wiped ${users.count} performers, ${profiles.count} profiles, ` +
-    `${media.count} media items, ${inquiries.count} inquiries`,
+    `${media.count} media items, ${inquiries.count} inquiries, ${sessions.count} sessions`,
   )
 }
 
@@ -58,6 +61,7 @@ async function seedPerformers() {
       data: {
         userId: user.id,
         displayName: artist.displayName,
+        slug: artist.slug,
         category: artist.category,
         location: artist.location,
         bio: artist.bio,

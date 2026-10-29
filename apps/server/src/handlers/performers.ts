@@ -16,11 +16,39 @@ export async function getPerformer(request: any, reply: any) {
 }
 
 export async function getMyPerformerProfile(request: any, reply: any) {
-  if (request.user.role !== 'PERFORMER') {
-    throw { statusCode: 403, message: 'Forbidden' }
-  }
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
   const performer = await performerService.getByUserId(request.user.id)
   return reply.send({ data: performer })
+}
+
+export async function updateMyProfile(request: any, reply: any) {
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
+  const profile = await performerService.updateMyProfile(request.user.id, request.body)
+  return reply.send({ data: profile })
+}
+
+export async function addMyMedia(request: any, reply: any) {
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
+  const item = await performerService.addMedia(request.user.id, request.body)
+  return reply.status(201).send({ data: item })
+}
+
+export async function reorderMyMedia(request: any, reply: any) {
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
+  const result = await performerService.reorderMedia(request.user.id, request.body.items)
+  return reply.send(result)
+}
+
+export async function deleteMyMedia(request: any, reply: any) {
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
+  const result = await performerService.deleteMedia(request.user.id, request.params.mediaId)
+  return reply.send(result)
+}
+
+export async function updateMyMedia(request: any, reply: any) {
+  if (request.user.role !== 'PERFORMER') throw { statusCode: 403, message: 'Forbidden' }
+  const item = await performerService.updateMedia(request.user.id, request.params.mediaId, request.body)
+  return reply.send({ data: item })
 }
 
 export async function submitInquiry(request: any, reply: any) {

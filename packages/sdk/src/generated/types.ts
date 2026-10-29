@@ -20,6 +20,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Register a new performer account */
+        post: operations["register"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/logout": {
         parameters: {
             query?: never;
@@ -81,7 +98,55 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
+        patch: operations["updateMyProfile"];
+        trace?: never;
+    };
+    "/performers/me/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["addMyMedia"];
+        delete?: never;
+        options?: never;
+        head?: never;
         patch?: never;
+        trace?: never;
+    };
+    "/performers/me/media/reorder": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["reorderMyMedia"];
+        trace?: never;
+    };
+    "/performers/me/media/{mediaId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["deleteMyMedia"];
+        options?: never;
+        head?: never;
+        patch: operations["updateMyMedia"];
         trace?: never;
     };
     "/performers/{performerId}": {
@@ -196,6 +261,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/admin/performers/{performerId}/media/reorder": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["adminReorderMedia"];
+        trace?: never;
+    };
     "/admin/performers/{performerId}/media/{mediaId}": {
         parameters: {
             query?: never;
@@ -263,6 +344,14 @@ export interface components {
             email: string;
             password: string;
         };
+        RegisterInput: {
+            /** Format: email */
+            email: string;
+            password: string;
+            displayName: string;
+            category: components["schemas"]["PerformerCategory"];
+            location?: string;
+        };
         AuthUser: {
             id: string;
             email: string;
@@ -287,6 +376,7 @@ export interface components {
         PerformerProfile: {
             id: string;
             displayName: string;
+            slug?: string | null;
             bio?: string | null;
             headshotUrl?: string | null;
             category: components["schemas"]["PerformerCategory"];
@@ -310,6 +400,7 @@ export interface components {
         PerformerProfileSummary: {
             id: string;
             displayName: string;
+            slug?: string | null;
             headshotUrl?: string | null;
             category: components["schemas"]["PerformerCategory"];
             location?: string | null;
@@ -334,6 +425,7 @@ export interface components {
         };
         UpdatePerformerInput: {
             displayName?: string;
+            slug?: string;
             bio?: string;
             headshotUrl?: string;
             headshotKey?: string;
@@ -385,6 +477,28 @@ export interface components {
             mimeType: string;
             /** @description File size in bytes */
             size: number;
+        };
+        UpdateMyProfileInput: {
+            displayName?: string;
+            slug?: string;
+            bio?: string;
+            category?: components["schemas"]["PerformerCategory"];
+            location?: string;
+            age?: number;
+            height?: string;
+            weight?: string;
+            measurements?: string;
+            shoeSize?: string;
+            hairColor?: string;
+            eyeColor?: string;
+            headshotUrl?: string;
+            headshotKey?: string;
+        };
+        ReorderMediaInput: {
+            items: {
+                id: string;
+                order: number;
+            }[];
         };
         ErrorResponse: {
             error: string;
@@ -456,6 +570,40 @@ export interface operations {
                 };
             };
             401: components["responses"]["Unauthorized"];
+        };
+    };
+    register: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterInput"];
+            };
+        };
+        responses: {
+            /** @description Account created — session token delivered via Set-Cookie */
+            201: {
+                headers: {
+                    "Set-Cookie"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthResponse"];
+                };
+            };
+            /** @description Email already registered */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
         };
     };
     logout: {
@@ -547,6 +695,145 @@ export interface operations {
                 content: {
                     "application/json": {
                         data?: components["schemas"]["PerformerProfile"];
+                    };
+                };
+            };
+        };
+    };
+    updateMyProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateMyProfileInput"];
+            };
+        };
+        responses: {
+            /** @description Updated profile */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: components["schemas"]["PerformerProfile"];
+                    };
+                };
+            };
+            /** @description Slug already taken */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    addMyMedia: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddMediaInput"];
+            };
+        };
+        responses: {
+            /** @description Media item created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: components["schemas"]["MediaItem"];
+                    };
+                };
+            };
+        };
+    };
+    reorderMyMedia: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReorderMediaInput"];
+            };
+        };
+        responses: {
+            /** @description Reorder applied */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ok?: boolean;
+                    };
+                };
+            };
+        };
+    };
+    deleteMyMedia: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mediaId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Deleted */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ok?: boolean;
+                    };
+                };
+            };
+        };
+    };
+    updateMyMedia: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                mediaId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateMediaInput"];
+            };
+        };
+        responses: {
+            /** @description Updated media item */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: components["schemas"]["MediaItem"];
                     };
                 };
             };
@@ -830,6 +1117,36 @@ export interface operations {
                 content: {
                     "application/json": {
                         data?: components["schemas"]["MediaItem"];
+                    };
+                };
+            };
+        };
+    };
+    adminReorderMedia: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                performerId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReorderMediaInput"];
+            };
+        };
+        responses: {
+            /** @description Reordered */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data?: {
+                            ok?: boolean;
+                        };
                     };
                 };
             };

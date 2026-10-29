@@ -16,7 +16,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 export function PerformerCard({ performer, className }: PerformerCardProps) {
   return (
     <Link
-      to={`/performers/${performer.id}`}
+      to={`/performers/${performer.slug ?? performer.id}`}
       className={cn(
         'group flex items-center justify-between p-4 border-b border-r border-black',
         'hover:bg-black transition-colors duration-100 cursor-pointer',

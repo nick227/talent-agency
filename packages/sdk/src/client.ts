@@ -7,8 +7,11 @@ type ClientConfig = {
 }
 
 let _client: ReturnType<typeof createClient<paths>> | null = null
+let _baseUrl = ''
 
 export function createApiClient(config: ClientConfig) {
+  _baseUrl = config.baseUrl.replace(/\/$/, '')
+
   const client = createClient<paths>({
     baseUrl: config.baseUrl,
     credentials: 'include',
@@ -18,7 +21,7 @@ export function createApiClient(config: ClientConfig) {
     const authMiddleware: Middleware = {
       async onRequest(req) {
         const token = config.getToken!()
-        if (token) req.headers.set('Authorization', `Bearer ${token}`)
+        if (token) req.headers.set('Authorization', 'Bearer ' + token)
         return req
       },
     }
@@ -34,6 +37,10 @@ export function getApiClient() {
   return _client
 }
 
+export function getBaseUrl() {
+  return _baseUrl || 'http://localhost:3001'
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -43,4 +50,12 @@ export class ApiError extends Error {
     super(message)
     this.name = 'ApiError'
   }
+}
+
+export function getErrorMessage(error: unknown, fallback = 'Failed'): string {
+  if (typeof error === 'object' && error !== null && 'error' in error) {
+    const maybeError = (error as { error?: unknown }).error
+    if (typeof maybeError === 'string') return maybeError
+  }
+  return fallback
 }

@@ -12,40 +12,43 @@ export function AdminDashboard() {
 
   const published = performers.filter((p) => p.isPublished).length
   const featured = performers.filter((p) => p.isFeatured).length
+  const pending = performers.filter((p) => !p.isPublished).length
 
   const stats = [
     { label: 'Total Performers', value: performers.length, href: '/admin/performers' },
     { label: 'Published', value: published, href: '/admin/performers' },
+    { label: 'Pending Review', value: pending, href: '/admin/performers' },
     { label: 'Featured', value: featured, href: '/admin/performers' },
-    { label: 'Total Inquiries', value: inquiries.length, href: '/admin/inquiries' },
   ]
 
-  const recentInquiries = inquiries.slice(0, 5)
+  const recentInquiries = inquiries.slice(0, 6)
 
   return (
     <div>
       <FadeIn>
-        <p className="text-[10px] tracking-agency uppercase text-muted-foreground mb-8">Overview</p>
-        <h1 className="font-display font-300 tracking-tight-display text-foreground text-4xl md:text-5xl leading-none mb-12">
+        <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground mb-3">Overview</p>
+        <h1 className="font-display text-4xl md:text-5xl font-extrabold tracking-tight-display uppercase text-foreground mb-12 leading-none">
           Dashboard
         </h1>
       </FadeIn>
 
-      {/* Stats */}
+      {/* Stats grid — connected border */}
       <FadeIn delay={0.1}>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-border mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 border-t border-l border-black mb-16">
           {stats.map((stat) => (
             <Link
               key={stat.label}
               to={stat.href}
-              className="bg-background p-6 hover:bg-accent transition-colors group"
+              className="group bg-background p-6 border-b border-r border-black hover:bg-black transition-colors duration-100"
             >
-              {loadingPerformers || loadingInquiries ? (
-                <Skeleton className="h-10 w-16 mb-2" />
+              {loadingPerformers ? (
+                <Skeleton className="h-10 w-16 mb-3" />
               ) : (
-                <p className="font-display font-300 text-4xl text-foreground mb-2">{stat.value}</p>
+                <p className="font-display text-4xl font-extrabold text-foreground group-hover:text-white mb-3 leading-none">
+                  {stat.value}
+                </p>
               )}
-              <p className="text-[10px] tracking-agency uppercase text-muted-foreground group-hover:text-foreground transition-colors">
+              <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground group-hover:text-white/60 transition-colors">
                 {stat.label}
               </p>
             </Link>
@@ -55,26 +58,36 @@ export function AdminDashboard() {
 
       {/* Recent inquiries */}
       <FadeIn delay={0.2}>
-        <div className="flex items-baseline justify-between mb-6">
-          <p className="text-[10px] tracking-agency uppercase text-muted-foreground">Recent Inquiries</p>
-          <Link to="/admin/inquiries" className="text-[10px] tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors">
+        <div className="flex items-baseline justify-between mb-4">
+          <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground">Recent Inquiries</p>
+          <Link
+            to="/admin/inquiries"
+            className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors"
+          >
             All →
           </Link>
         </div>
 
         {loadingInquiries ? (
-          <div className="space-y-px">
-            {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-14 w-full" />)}
+          <div className="border-t border-l border-black">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-14 w-full border-b border-r border-black" />
+            ))}
           </div>
         ) : recentInquiries.length === 0 ? (
-          <p className="text-xs text-muted-foreground py-8">No inquiries yet.</p>
+          <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground py-8 border-t border-black">
+            No inquiries yet.
+          </p>
         ) : (
-          <div className="space-y-px">
+          <div className="border-t border-l border-black">
             {recentInquiries.map((inq) => (
-              <div key={inq.id} className="bg-surface flex items-center gap-6 px-4 py-3 text-xs">
-                <span className="text-foreground font-sans font-400 w-36 truncate">{inq.name}</span>
-                <span className="text-muted-foreground truncate flex-1">{inq.email}</span>
-                <span className="text-[10px] tracking-agency uppercase text-muted-foreground w-28 text-right">
+              <div
+                key={inq.id}
+                className="flex items-center gap-4 px-4 py-3 border-b border-r border-black bg-background hover:bg-muted transition-colors"
+              >
+                <span className="font-sans text-sm text-foreground w-40 truncate shrink-0">{inq.name}</span>
+                <span className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground truncate flex-1">{inq.email}</span>
+                <span className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground w-28 text-right shrink-0">
                   {new Date(inq.createdAt).toLocaleDateString()}
                 </span>
               </div>

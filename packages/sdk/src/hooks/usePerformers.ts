@@ -1,9 +1,74 @@
 import { useInfiniteQuery, useQuery, useMutation } from '@tanstack/react-query'
-import { getApiClient, ApiError } from '../client'
-import type { PerformerCategory, SubmitInquiryInput } from '../types'
+import { getApiClient, ApiError, getErrorMessage } from '../client'
+import type { PerformerCategory, SubmitInquiryInput, RegisterInput, UpdateMyProfileInput, AddMediaInput, ReorderMediaInput, UpdateMediaInput } from '../types'
 
-function err(r: { error: unknown; response: unknown }) {
-  return new ApiError((r.response as Response).status, (r.error as any)?.error ?? 'Failed')
+function err(r: { error: unknown; response: Response }) {
+  return new ApiError(r.response.status, getErrorMessage(r.error, 'Failed'))
+}
+
+export function useRegister() {
+  return useMutation({
+    mutationFn: async (body: RegisterInput) => {
+      const r = await getApiClient().POST('/auth/register', { body })
+      if (!r.data) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Registration failed'))
+      return r.data
+    },
+  })
+}
+
+export function useUpdateMyProfile() {
+  return useMutation({
+    mutationFn: async (body: UpdateMyProfileInput) => {
+      const r = await getApiClient().PATCH('/performers/me', { body })
+      if (!r.data) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Update failed'))
+      return r.data
+    },
+  })
+}
+
+export function useAddMyMedia() {
+  return useMutation({
+    mutationFn: async (body: AddMediaInput) => {
+      const r = await getApiClient().POST('/performers/me/media', { body })
+      if (!r.data) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Add media failed'))
+      return r.data
+    },
+  })
+}
+
+export function useReorderMyMedia() {
+  return useMutation({
+    mutationFn: async (body: ReorderMediaInput) => {
+      const r = await getApiClient().PATCH('/performers/me/media/reorder', { body })
+      if (r.error) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Reorder failed'))
+      return r.data
+    },
+  })
+}
+
+export function useDeleteMyMedia() {
+  return useMutation({
+    mutationFn: async (mediaId: string) => {
+      const r = await getApiClient().DELETE('/performers/me/media/{mediaId}', {
+        params: { path: { mediaId } },
+      })
+      if (r.error) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Delete failed'))
+      return r.data
+    },
+  })
+}
+
+export function useUpdateMyMedia() {
+  return useMutation({
+    mutationFn: async ({ mediaId, body }: { mediaId: string; body: UpdateMediaInput }) => {
+      const r = await getApiClient().PATCH('/performers/me/media/{mediaId}', {
+        params: { path: { mediaId } },
+        body,
+      })
+      if (!r.data) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Update failed'))
+      return r.data
+    },
+  })
 }
 
 export function usePerformers(params?: {

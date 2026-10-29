@@ -44,6 +44,11 @@ export async function adminUpdateMedia(request: any, reply: any) {
   return reply.send({ data: item })
 }
 
+export async function adminReorderMedia(request: any, reply: any) {
+  const result = await adminService.reorderMedia(request.params.performerId, request.body.items)
+  return reply.send({ data: result })
+}
+
 export async function adminDeleteMedia(request: any, reply: any) {
   await adminService.deleteMedia(request.params.performerId, request.params.mediaId)
   return reply.send({ data: null })

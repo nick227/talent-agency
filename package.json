@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"pnpm --filter server dev\" \"pnpm --filter web dev\"",
-    "build": "pnpm --filter server build && pnpm --filter web build",
+    "build": "pnpm lint && pnpm typecheck && pnpm --filter server build && pnpm --filter web build",
+    "check": "pnpm lint && pnpm typecheck",
     "typecheck": "pnpm -r typecheck",
     "lint": "pnpm -r lint",
     "test": "pnpm --filter server test",
@@ -15,7 +16,12 @@
     "bootstrap": "pnpm install && pnpm db:push && pnpm sdk:generate && pnpm db:seed"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }

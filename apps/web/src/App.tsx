@@ -9,6 +9,7 @@ import { PerformerPage } from '@/pages/PerformerPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { ContactPage } from '@/pages/ContactPage'
 import { LoginPage } from '@/pages/LoginPage'
+import { RegisterPage } from '@/pages/RegisterPage'
 import { AdminDashboard } from '@/pages/admin/AdminDashboard'
 import { AdminPerformers } from '@/pages/admin/AdminPerformers'
 import { AdminPerformerNew } from '@/pages/admin/AdminPerformerNew'
@@ -22,6 +23,7 @@ export function App() {
       <Routes>
         {/* Auth */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Public */}
         <Route element={<PublicShell />}>

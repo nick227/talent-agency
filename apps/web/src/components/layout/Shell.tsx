@@ -1,5 +1,7 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/lib/utils'
+import { useLogout } from '@talent/sdk'
+import { toast } from 'sonner'
 
 export function PublicShell() {
   const location = useLocation()
@@ -29,12 +31,20 @@ export function PublicShell() {
             <Link to="/contact" className={navLinkClass('/contact')}>Contact</Link>
           </nav>
 
-          <Link
-            to="/login"
-            className="font-mono text-label-mono font-bold tracking-agency uppercase px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors duration-100"
-          >
-            Login
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link
+              to="/register"
+              className="hidden md:block font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Join
+            </Link>
+            <Link
+              to="/login"
+              className="font-mono text-label-mono font-bold tracking-agency uppercase px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors duration-100"
+            >
+              Sign In
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -63,6 +73,17 @@ export function PublicShell() {
 
 export function AdminShell() {
   const location = useLocation()
+  const navigate = useNavigate()
+  const logout = useLogout()
+
+  const handleLogout = async () => {
+    try {
+      await logout.mutateAsync()
+      navigate('/login')
+    } catch {
+      toast.error('Logout failed')
+    }
+  }
 
   const navItems = [
     { to: '/admin', label: 'Dashboard', exact: true },
@@ -100,13 +121,20 @@ export function AdminShell() {
             )
           })}
         </nav>
-        <div className="px-6 py-4 border-t border-black">
+        <div className="px-6 py-4 border-t border-black space-y-3">
           <Link
             to="/"
-            className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors"
+            className="block font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors"
           >
             ← Public Site
           </Link>
+          <button
+            onClick={handleLogout}
+            disabled={logout.isPending}
+            className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors disabled:opacity-40"
+          >
+            Sign Out
+          </button>
         </div>
       </aside>
 
@@ -120,15 +148,35 @@ export function AdminShell() {
 }
 
 export function PerformerShell() {
+  const navigate = useNavigate()
+  const logout = useLogout()
+
+  const handleLogout = async () => {
+    await logout.mutateAsync()
+    navigate('/login')
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-black px-8 py-5 flex items-center justify-between">
-        <Link to="/" className="font-mono text-label-mono font-bold tracking-agency uppercase text-foreground">
-          TALENT / AGENCY
-        </Link>
-        <span className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground">My Profile</span>
+      <header className="sticky top-0 z-50 bg-background border-b border-black">
+        <div className="flex items-center justify-between max-w-[1200px] mx-auto px-4 md:px-16 h-16">
+          <Link to="/" className="font-mono text-label-mono font-bold tracking-agency uppercase text-foreground">
+            TALENT / AGENCY
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/dashboard" className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors">
+              Dashboard
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="font-mono text-label-mono tracking-agency uppercase px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors duration-100"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
       </header>
-      <main className="max-w-3xl mx-auto px-8 py-16">
+      <main className="max-w-[1200px] mx-auto px-4 md:px-16 py-12">
         <Outlet />
       </main>
     </div>

@@ -191,6 +191,23 @@ export class AdminService {
     return db.mediaItem.update({ where: { id: mediaId }, data })
   }
 
+  async reorderMedia(performerId: string, items: { id: string; order: number }[]) {
+    const performer = await db.performerProfile.findFirst({
+      where: { id: performerId, deletedAt: null },
+    })
+    if (!performer) throw { statusCode: 404, message: 'Performer not found' }
+
+    await db.$transaction(
+      items.map(({ id, order }) =>
+        db.mediaItem.updateMany({
+          where: { id, performerProfileId: performerId },
+          data: { order },
+        }),
+      ),
+    )
+    return { ok: true }
+  }
+
   async deleteMedia(performerId: string, mediaId: string) {
     const item = await db.mediaItem.findFirst({
       where: { id: mediaId, performerProfileId: performerId },

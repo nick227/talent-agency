@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+apps/server/dist/
+apps/web/dist/
+packages/*/dist/
+*.d.ts

@@ -5,7 +5,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "generate": "tsx scripts/generate.ts"
+    "generate": "tsx scripts/generate.ts",
+    "lint": "eslint src --ext ts --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.19",

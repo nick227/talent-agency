@@ -47,6 +47,10 @@ export function PerformerPage() {
     <PageTransition>
       <div className="max-w-[1200px] mx-auto px-4 md:px-16">
 
+                <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground mt-6">
+                  Portfolio
+                </p>
+
         {/* Performer header */}
         <FadeIn>
           <div className="py-12 border-b border-black">
@@ -135,9 +139,6 @@ export function PerformerPage() {
             {/* Portfolio */}
             {(isLoading || (performer?.mediaItems && performer.mediaItems.length > 0)) && (
               <FadeIn delay={0.1}>
-                <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground mb-6">
-                  Portfolio
-                </p>
                 {isLoading ? (
                   <Skeleton className="w-full" style={{ aspectRatio: '16/10' } as React.CSSProperties} />
                 ) : (

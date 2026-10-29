@@ -61,6 +61,7 @@ model PerformerProfile {
   user        User              @relation(fields: [userId], references: [id])
 
   displayName String
+  slug        String?           @unique
   bio         String?           @db.Text
   headshotUrl String?
   headshotKey String?

@@ -1,9 +1,12 @@
 import { useInfiniteQuery, useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getApiClient, ApiError } from '../client'
+import { getApiClient, ApiError, getErrorMessage } from '../client'
 import type { PerformerCategory, CreatePerformerInput, UpdatePerformerInput, AddMediaInput, UpdateMediaInput } from '../types'
 
-function err(r: { error: unknown; response: unknown }) {
-  return new ApiError((r.response as Response).status, (r.error as any)?.error ?? 'Failed')
+function err(r: { error: unknown; response: Response }) {
+  return new ApiError(
+    r.response.status,
+    getErrorMessage(r.error, 'Failed'),
+  )
 }
 
 export function useAdminPerformers(params?: {
@@ -111,6 +114,23 @@ export function useAdminUpdateMedia() {
       const r = await getApiClient().PATCH('/admin/performers/{performerId}/media/{mediaId}', {
         params: { path: { performerId, mediaId } },
         body,
+      })
+      if (r.error) throw err(r)
+      return r.data!
+    },
+    onSuccess: (_data, { performerId }) => {
+      queryClient.invalidateQueries({ queryKey: ['admin', 'performer', performerId] })
+    },
+  })
+}
+
+export function useAdminReorderMedia() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ performerId, items }: { performerId: string; items: { id: string; order: number }[] }) => {
+      const r = await getApiClient().PATCH('/admin/performers/{performerId}/media/reorder', {
+        params: { path: { performerId } },
+        body: { items },
       })
       if (r.error) throw err(r)
       return r.data!

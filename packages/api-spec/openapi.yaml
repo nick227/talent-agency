@@ -48,6 +48,16 @@ components:
         email: { type: string, format: email }
         password: { type: string }
 
+    RegisterInput:
+      type: object
+      required: [email, password, displayName, category]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 8 }
+        displayName: { type: string, minLength: 1, maxLength: 100 }
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location: { type: string }
+
     AuthUser:
       type: object
       required: [id, email, role, createdAt]
@@ -84,6 +94,9 @@ components:
       properties:
         id: { type: string }
         displayName: { type: string }
+        slug:
+          type: string
+          nullable: true
         bio:
           type: string
           nullable: true
@@ -132,6 +145,9 @@ components:
       properties:
         id: { type: string }
         displayName: { type: string }
+        slug:
+          type: string
+          nullable: true
         headshotUrl:
           type: string
           nullable: true
@@ -164,6 +180,7 @@ components:
       type: object
       properties:
         displayName: { type: string, minLength: 1, maxLength: 100 }
+        slug: { type: string, pattern: '^[a-z0-9-]+$' }
         bio: { type: string }
         headshotUrl: { type: string }
         headshotKey: { type: string }
@@ -227,6 +244,37 @@ components:
         mimeType: { type: string }
         size: { type: integer, description: File size in bytes }
 
+    UpdateMyProfileInput:
+      type: object
+      properties:
+        displayName: { type: string, minLength: 1, maxLength: 100 }
+        slug: { type: string, minLength: 1, maxLength: 80, pattern: '^[a-z0-9-]+$' }
+        bio: { type: string }
+        category: { $ref: '#/components/schemas/PerformerCategory' }
+        location: { type: string }
+        age: { type: integer, minimum: 16, maximum: 100 }
+        height: { type: string }
+        weight: { type: string }
+        measurements: { type: string }
+        shoeSize: { type: string }
+        hairColor: { type: string }
+        eyeColor: { type: string }
+        headshotUrl: { type: string }
+        headshotKey: { type: string }
+
+    ReorderMediaInput:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            required: [id, order]
+            properties:
+              id: { type: string }
+              order: { type: integer, minimum: 0 }
+
     ErrorResponse:
       type: object
       required: [error]
@@ -288,6 +336,32 @@ paths:
               schema: { $ref: '#/components/schemas/AuthResponse' }
         '401':
           $ref: '#/components/responses/Unauthorized'
+
+  /auth/register:
+    post:
+      operationId: register
+      security: []
+      tags: [auth]
+      summary: Register a new performer account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/RegisterInput' }
+      responses:
+        '201':
+          description: Account created — session token delivered via Set-Cookie
+          headers:
+            Set-Cookie:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AuthResponse' }
+        '409':
+          description: Email already registered
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
 
   /auth/logout:
     post:
@@ -358,6 +432,107 @@ paths:
                 type: object
                 properties:
                   data: { $ref: '#/components/schemas/PerformerProfile' }
+    patch:
+      operationId: updateMyProfile
+      tags: [performers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateMyProfileInput' }
+      responses:
+        '200':
+          description: Updated profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/PerformerProfile' }
+        '409':
+          description: Slug already taken
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+
+  /performers/me/media:
+    post:
+      operationId: addMyMedia
+      tags: [performers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AddMediaInput' }
+      responses:
+        '201':
+          description: Media item created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/MediaItem' }
+
+  /performers/me/media/reorder:
+    patch:
+      operationId: reorderMyMedia
+      tags: [performers]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReorderMediaInput' }
+      responses:
+        '200':
+          description: Reorder applied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+
+  /performers/me/media/{mediaId}:
+    delete:
+      operationId: deleteMyMedia
+      tags: [performers]
+      parameters:
+        - in: path
+          name: mediaId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+    patch:
+      operationId: updateMyMedia
+      tags: [performers]
+      parameters:
+        - in: path
+          name: mediaId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UpdateMediaInput' }
+      responses:
+        '200':
+          description: Updated media item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/MediaItem' }
 
   /performers/{performerId}:
     get:
@@ -599,6 +774,35 @@ paths:
                 type: object
                 properties:
                   data: { $ref: '#/components/schemas/MediaItem' }
+
+  /admin/performers/{performerId}/media/reorder:
+    patch:
+      operationId: adminReorderMedia
+      security:
+        - adminAuth: []
+      tags: [admin]
+      parameters:
+        - in: path
+          name: performerId
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReorderMediaInput' }
+      responses:
+        '200':
+          description: Reordered
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      ok: { type: boolean }
 
   /admin/performers/{performerId}/media/{mediaId}:
     patch:

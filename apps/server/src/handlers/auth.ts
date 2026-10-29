@@ -10,6 +10,19 @@ const COOKIE_OPTS = {
   maxAge: 30 * 24 * 60 * 60,
 }
 
+export async function register(request: any, reply: any) {
+  const { user, token } = await authService.register(request.body)
+  reply.setCookie('token', token, COOKIE_OPTS)
+  return reply.status(201).send({
+    data: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      createdAt: user.createdAt,
+    },
+  })
+}
+
 export async function login(request: any, reply: any) {
   const { user, token } = await authService.login(request.body)
   reply.setCookie('token', token, COOKIE_OPTS)
