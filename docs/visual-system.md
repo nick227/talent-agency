@@ -72,7 +72,7 @@ DM Sans imported from Google Fonts. Cormorant Garamond imported from Google Font
 
 - Page transitions: `PageTransition` — fade + 6px y-shift, 180ms
 - Section reveals: `FadeIn` with 400ms, delay increments for sequential elements
-- Roster grid entrance: `StaggerList` with 80ms stagger
+- Talent grid entrance: `StaggerList` with 80ms stagger
 - Performer card hover: image scale 1.03, name opacity 1 → visible, 300ms ease
 - Hero slider: Embla autoplay every 5000ms, fade crossfade if possible
 - No bounce, no spring, no elastic — restrained premium motion only
@@ -89,10 +89,10 @@ DM Sans imported from Google Fonts. Cormorant Garamond imported from Google Font
 
 ## Mobile Rules
 
-- Roster grid: 2 columns on mobile (320–768px), 3 columns on tablet, 4 on desktop
+- Talent grid: 2 columns on mobile (320–768px), 3 columns on tablet, 4 on desktop
 - Performer name on cards: always visible on mobile (no hover-reveal required)
 - Hero: full-screen height, performer name visible above fold
-- Nav: wordmark + hamburger menu (or just two links: Roster / Contact)
+- Nav: wordmark + hamburger menu (or just two links: Talent / Contact)
 - Inquiry form: full-width stacked inputs
 - Admin sidebar collapses to top bar on mobile
 

@@ -14,6 +14,7 @@ import {
   useUpdateMyMedia,
 } from '@talent/sdk'
 import { useUpload } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { Button } from '@/components/ui/Button'
 import { Skeleton } from '@/components/ui/Skeleton'
 
@@ -460,6 +461,8 @@ function PortfolioSection({ profile }: { profile: any }) {
 export function PerformerDashboard() {
   const { data, isLoading } = useMyPerformerProfile()
   const profile = data?.data
+
+  usePageTitle(profile?.displayName ? `${profile.displayName} · Dashboard` : 'Dashboard')
 
   if (isLoading) {
     return (

@@ -5,24 +5,15 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 import { useRegister, useCurrentUser } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { Button } from '@/components/ui/Button'
 import { AuthLayout } from '@/components/layout/AuthLayout'
-
-const CATEGORIES = [
-  { value: 'ACTOR', label: 'Actor' },
-  { value: 'MODEL', label: 'Model' },
-  { value: 'DANCER', label: 'Dancer' },
-  { value: 'MUSICIAN', label: 'Musician' },
-  { value: 'COMEDIAN', label: 'Comedian' },
-  { value: 'HOST', label: 'Host' },
-  { value: 'INFLUENCER', label: 'Influencer' },
-  { value: 'OTHER', label: 'Other' },
-]
+import { CATEGORIES, CATEGORY_LABEL } from '@/constants/categories'
 
 const schema = z.object({
   displayName: z.string().min(1, 'Required').max(100, 'Too long'),
   email: z.string().email('Valid email required'),
-  category: z.enum(['ACTOR', 'MODEL', 'DANCER', 'MUSICIAN', 'COMEDIAN', 'HOST', 'INFLUENCER', 'OTHER'] as const, { errorMap: () => ({ message: 'Select your category' }) }),
+  category: z.enum(CATEGORIES, { errorMap: () => ({ message: 'Select your category' }) }),
   location: z.string().optional(),
   password: z.string().min(8, 'At least 8 characters'),
   confirmPassword: z.string().min(1, 'Required'),
@@ -38,6 +29,7 @@ const labelClass = 'block font-mono text-label-mono tracking-agency uppercase mb
 const inputClass = 'w-full bg-transparent border-none p-0 font-sans text-body-md text-foreground focus:outline-none focus:ring-0 placeholder:text-muted-foreground/50'
 
 export function RegisterPage() {
+  usePageTitle('Join Agency')
   const navigate = useNavigate()
   const { data: me } = useCurrentUser()
   const register_ = useRegister()
@@ -74,9 +66,9 @@ export function RegisterPage() {
 
   return (
     <AuthLayout
-      headline={"Join the\nRoster."}
+      headline={"Join the Platform."}
       subheadline="Talent / Agency — Applications"
-      description="Apply to be represented. Our team reviews every submission and will contact you within 48 hours."
+      description="Join this growing collective of creative professionals and content creators."
       imageSeed="theo"
       stats={[
         { value: '48h', label: 'Review Time' },
@@ -90,7 +82,7 @@ export function RegisterPage() {
           className="font-display font-extrabold text-foreground tracking-tight-display leading-none"
           style={{ fontSize: 'clamp(2rem, 5vw, 48px)' }}
         >
-          Join the Roster
+          Join Agency
         </h2>
         <p className="font-sans text-body-md text-muted-foreground mt-2">
           Already a member?{' '}
@@ -134,7 +126,7 @@ export function RegisterPage() {
           <select className={`${inputClass} appearance-none`} {...register('category')}>
             <option value="">Select your discipline</option>
             {CATEGORIES.map((c) => (
-              <option key={c.value} value={c.value}>{c.label}</option>
+              <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>
             ))}
           </select>
           {errors.category && (

@@ -157,6 +157,9 @@ components:
           nullable: true
         isPublished: { type: boolean }
         isFeatured: { type: boolean }
+        bio:
+          type: string
+          nullable: true
 
     CreatePerformerInput:
       type: object
@@ -366,6 +369,7 @@ paths:
   /auth/logout:
     post:
       operationId: logout
+      security: []
       tags: [auth]
       responses:
         '200':

@@ -3,8 +3,8 @@ import { PublicShell } from '@/components/layout/Shell'
 import { AdminShell } from '@/components/layout/Shell'
 import { PerformerShell } from '@/components/layout/Shell'
 import { AuthGuard, AdminGuard } from '@/lib/AuthGuard'
-import { HomePage } from '@/pages/HomePage'
 import { RosterPage } from '@/pages/RosterPage'
+
 import { PerformerPage } from '@/pages/PerformerPage'
 import { AboutPage } from '@/pages/AboutPage'
 import { ContactPage } from '@/pages/ContactPage'
@@ -27,8 +27,10 @@ export function App() {
 
         {/* Public */}
         <Route element={<PublicShell />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/roster" element={<RosterPage />} />
+          <Route path="/" element={<RosterPage />} />
+          <Route path="/talent" element={<RosterPage />} />
+          <Route path="/:city" element={<RosterPage />} />
+
           <Route path="/performers/:performerId" element={<PerformerPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />

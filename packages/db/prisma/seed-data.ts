@@ -1,5 +1,5 @@
 /**
- * Seed data — edit this file to change the roster.
+ * Seed data — edit this file to change the talent.
  *
  * Photos:  https://picsum.photos/seed/{picsumSeed}/{w}/{h}
  * Videos:  YouTube embed URL  https://www.youtube.com/embed/{videoId}

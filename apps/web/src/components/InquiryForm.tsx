@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { useSubmitInquiry } from '@talent/sdk'
 import { Button } from '@/components/ui/Button'
+import { PROJECT_TYPES } from '@/constants/categories'
 
 const schema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
@@ -13,8 +14,6 @@ const schema = z.object({
 })
 
 type FormData = z.infer<typeof schema>
-
-const PROJECT_TYPES = ['Film', 'TV', 'Commercial', 'Fashion', 'Music Video', 'Theatre', 'Brand Partnership', 'Other']
 
 const fieldClass = 'border-b border-black py-3'
 const labelClass = 'block font-mono text-label-mono tracking-agency uppercase mb-1 text-foreground'

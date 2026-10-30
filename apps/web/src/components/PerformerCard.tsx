@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { PerformerProfileSummary } from '@talent/sdk'
@@ -14,18 +14,20 @@ const CATEGORY_LABELS: Record<string, string> = {
 }
 
 export function PerformerCard({ performer, className }: PerformerCardProps) {
+  
+  const navigate = useNavigate()
   return (
     <Link
       to={`/performers/${performer.slug ?? performer.id}`}
       className={cn(
         'group flex items-center justify-between p-4 border-b border-r border-black',
-        'hover:bg-black transition-colors duration-100 cursor-pointer',
+        'cursor-pointer',
         className,
       )}
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4  mb-12 pt-12">
         {/* Small bordered grayscale portrait */}
-        <div className="w-16 h-20 border border-black overflow-hidden bg-muted shrink-0">
+        <div className="w-[50%] border border-black overflow-hidden bg-muted shrink-0">
           {performer.headshotUrl ? (
             <img
               src={performer.headshotUrl}
@@ -35,26 +37,36 @@ export function PerformerCard({ performer, className }: PerformerCardProps) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span className="font-mono text-[10px] text-muted-foreground group-hover:text-white/50">N/A</span>
+              <span className="font-mono text-[10px] text-foreground">N/A</span>
             </div>
           )}
         </div>
 
-        <div>
-          <p className="font-display text-headline-md font-semibold text-foreground group-hover:text-white uppercase leading-tight">
+        <div className="h-full flex flex-col justify-start gap-2">
+          <div>
+          <p className="font-display text-headline-md font-semibold text-foreground uppercase leading-tight">
             {performer.displayName}
           </p>
-          <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground group-hover:text-white/70 mt-0.5">
+          <p className="font-mono text-label-mono tracking-agency uppercase text-foreground mt-0.5">
             {CATEGORY_LABELS[performer.category] ?? performer.category}
-            {performer.location ? ` / ${performer.location}` : ''}
+            {performer.location ? (
+              <> / <button
+                type="button"
+                className="underline text-foreground"
+                onClick={e => { e.stopPropagation(); navigate(`/talent?location=${encodeURIComponent(performer.location ?? '')}`) }}
+              >
+                {performer.location}
+              </button></>
+            ) : null}
+          </p>
+          </div>
+          <p className="font-display text-body-lg text-foreground leading-tight">
+            {performer.bio}
           </p>
         </div>
       </div>
 
-      <ArrowUpRight
-        size={20}
-        className="text-foreground group-hover:text-white shrink-0 ml-4"
-      />
+      <ArrowUpRight size={20} className="text-foreground shrink-0 ml-4" />
     </Link>
   )
 }

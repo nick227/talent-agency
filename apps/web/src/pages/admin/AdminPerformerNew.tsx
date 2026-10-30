@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAdminCreatePerformer, useAdminUpdatePerformer } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Button } from '@/components/ui/Button'
@@ -34,6 +35,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export function AdminPerformerNew() {
+  usePageTitle('Admin · Add Performer')
   const navigate = useNavigate()
   const create = useAdminCreatePerformer()
   const update = useAdminUpdatePerformer()
@@ -146,7 +148,7 @@ export function AdminPerformerNew() {
             <div className="space-y-3">
               <label className="flex items-center gap-3 cursor-pointer">
                 <input type="checkbox" {...register('isPublished')} className="accent-black w-4 h-4" />
-                <span className="font-mono text-label-mono tracking-agency uppercase text-foreground">Published — visible on public roster</span>
+                <span className="font-mono text-label-mono tracking-agency uppercase text-foreground">Published — visible</span>
               </label>
               <label className="flex items-center gap-3 cursor-pointer">
                 <input type="checkbox" {...register('isFeatured')} className="accent-black w-4 h-4" />

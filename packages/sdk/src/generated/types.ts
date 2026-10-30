@@ -406,6 +406,7 @@ export interface components {
             location?: string | null;
             isPublished: boolean;
             isFeatured: boolean;
+            bio?: string | null;
         };
         CreatePerformerInput: {
             /** Format: email */

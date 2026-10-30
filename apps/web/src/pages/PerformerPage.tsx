@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { usePerformer } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { InquiryForm } from '@/components/InquiryForm'
 import { MediaGallery } from '@/components/MediaGallery'
 import { FadeIn } from '@/components/animation/FadeIn'
@@ -24,6 +25,15 @@ const STAT_ROWS = [
 export function PerformerPage() {
   const { performerId } = useParams<{ performerId: string }>()
   const { data, isLoading, error } = usePerformer(performerId!)
+  const performer = data?.data
+
+  usePageTitle(
+    error
+      ? 'Performer Not Found'
+      : performer
+        ? `${performer.displayName} · ${CATEGORY_LABELS[performer.category] ?? performer.category}`
+        : 'Portfolio',
+  )
 
   if (error) {
     return (
@@ -32,16 +42,14 @@ export function PerformerPage() {
           Performer not found
         </p>
         <Link
-          to="/roster"
+          to="/talent"
           className="font-mono text-label-mono tracking-agency uppercase border-b border-black pb-0.5 hover:text-muted-foreground transition-colors"
         >
-          ← Back to Roster
+          ← Back to Talent
         </Link>
       </div>
     )
   }
-
-  const performer = data?.data
 
   return (
     <PageTransition>
@@ -62,8 +70,12 @@ export function PerformerPage() {
             ) : performer ? (
               <>
                 <p className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground mb-3">
-                  {CATEGORY_LABELS[performer.category] ?? performer.category}
-                  {performer.location ? ` / ${performer.location}` : ''}
+                  <Link to={`/talent?category=${performer.category}`} className="underline">
+                    {CATEGORY_LABELS[performer.category] ?? performer.category}
+                  </Link>
+                  {performer.location && (
+                    <> / <Link to={`/${performer.location.split(',')[0].trim()}`} className="underline">{performer.location.split(',')[0].trim()}</Link></>
+                  )}
                 </p>
                 <h1
                   className="font-display font-bold uppercase tracking-tight-display text-foreground"
@@ -173,10 +185,10 @@ export function PerformerPage() {
         {/* Back link */}
         <div className="py-8">
           <Link
-            to="/roster"
+            to="/talent"
             className="font-mono text-label-mono tracking-agency uppercase text-muted-foreground hover:text-foreground transition-colors"
           >
-            ← Back to Roster
+            ← Back to Talent
           </Link>
         </div>
       </div>

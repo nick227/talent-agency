@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useAdminPerformers, useAdminInquiries } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { FadeIn } from '@/components/animation/FadeIn'
 import { Skeleton } from '@/components/ui/Skeleton'
 
 export function AdminDashboard() {
+  usePageTitle('Admin · Dashboard')
   const { data: performersData, isLoading: loadingPerformers } = useAdminPerformers({ limit: 100 })
   const { data: inquiriesData, isLoading: loadingInquiries } = useAdminInquiries({ limit: 100 })
 

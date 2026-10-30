@@ -2,11 +2,11 @@
 
 ## Product
 
-TALENT / AGENCY — a dark editorial roster site for a talent agency to publish performer profiles and route casting inquiries.
+TALENT / AGENCY — a dark editorial talent site for a talent agency to publish performer profiles and route casting inquiries.
 
 ## Audience
 
-Casting directors, brand managers, and creative producers browsing a curated performer roster. They expect a premium, selective experience — closer to a gallery or fashion label than a software product.
+Casting directors, brand managers, and creative producers browsing a curated performer talent. They expect a premium, selective experience — closer to a gallery or fashion label than a software product.
 
 ## Design Direction
 
@@ -21,7 +21,7 @@ The site is chromeless: the performers are the experience. Interface chrome — 
 
 ## Layout System
 
-Public site: top nav with wordmark (TALENT / AGENCY) + Roster + About links. Full-viewport homepage with rotating performer feature. Roster page as an asymmetric image grid (performer faces, names on hover/tap). Performer profile as a full-width editorial layout — large headshot, name, bio, media gallery, inquiry form.
+Public site: top nav with wordmark (TALENT / AGENCY) + Talent + About links. Full-viewport homepage with rotating performer feature. Talent page as an asymmetric image grid (performer faces, names on hover/tap). Performer profile as a full-width editorial layout — large headshot, name, bio, media gallery, inquiry form.
 
 Admin/Performer: sidebar shell for authenticated users. Clean, dark, operational — but still chromeless. Not dashboard energy.
 
@@ -57,13 +57,13 @@ Typography:
 
 - **smart-media** — lazy image/video wrappers with shimmer; needed for performer portfolio grids
 - **slideshow** — HeroSlider for homepage rotating feature + GalleryBrowser for performer media gallery
-- **animation** — FadeIn (section reveals), SlideUp (name/bio entrance), StaggerList (roster grid entrance)
+- **animation** — FadeIn (section reveals), SlideUp (name/bio entrance), StaggerList (talent grid entrance)
 
 No theme pack selected — editorial-agency has its own custom token set that fits neither admin-ops nor creator-social.
 
 ## Page Composition
 
-- **HomePage** → [HeroSlider, StaggerList, PerformerCard, SlideUp, FadeIn] — rotating performer feature hero, staggered roster preview grid, "View Roster" CTA
+- **HomePage** → [HeroSlider, StaggerList, PerformerCard, SlideUp, FadeIn] — rotating performer feature hero, staggered talent preview grid, "View Talent" CTA
 - **RosterPage** → [StaggerList, PerformerCard, CategoryFilter, Input] — full image grid, name-reveal cards, category/location/search filter bar
 - **PerformerPage** → [GalleryBrowser, FadeIn, SlideUp, InquiryForm, MediaFrame] — full-width headshot, bio, media gallery, inquiry form
 - **LoginPage** → [Input, Button] — minimal centered form, no decoration
@@ -101,7 +101,7 @@ Images: use high-quality editorial portrait placeholder URLs (picsum.photos with
 
 - [ ] Hero / first viewport: full-screen performer image with TALENT / AGENCY wordmark large — no page header visible, no white background
 - [ ] Primary action color: near-white (#EDEDED) — no default blue, no colored accents anywhere
-- [ ] Card density at 1440px wide: roster grid shows 3-4 performer images, names hidden until hover — image-forward
+- [ ] Card density at 1440px wide: talent grid shows 3-4 performer images, names hidden until hover — image-forward
 - [ ] Mobile at 320px: single-column grid, no horizontal scroll, nav collapses to hamburger or simple links
 - [ ] Border radius: 0 everywhere — images, buttons, inputs, cards are all sharp-cornered
 - [ ] Typography: performer names render in Cormorant Garamond at ≥48px on profile page; body text is DM Sans

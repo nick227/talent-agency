@@ -39,7 +39,12 @@ export async function login(request: any, reply: any) {
 export async function logout(request: any, reply: any) {
   const token = request.cookies?.token ?? request.headers.authorization?.replace('Bearer ', '')
   if (token) await authService.logout(token)
-  reply.clearCookie('token', { path: '/' })
+  reply.clearCookie('token', {
+    path: '/',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+  })
   return reply.send({ data: null })
 }
 

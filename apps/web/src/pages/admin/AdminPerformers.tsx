@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAdminPerformers, useAdminUpdatePerformer, useAdminDeletePerformer } from '@talent/sdk'
 import type { PerformerProfileSummary } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { FadeIn } from '@/components/animation/FadeIn'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Button } from '@/components/ui/Button'
@@ -133,6 +134,7 @@ function PerformerRow({ performer }: { performer: PerformerProfileSummary }) {
 }
 
 export function AdminPerformers() {
+  usePageTitle('Admin · Performers')
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useAdminPerformers({ limit: 50 })
   const performers = data?.pages.flatMap((p) => p.data) ?? []
 

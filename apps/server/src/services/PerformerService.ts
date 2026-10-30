@@ -35,6 +35,7 @@ const summarySel = {
   id: true,
   displayName: true,
   slug: true,
+  bio: true,
   headshotUrl: true,
   category: true,
   location: true,

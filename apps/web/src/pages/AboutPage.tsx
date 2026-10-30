@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { FadeIn } from '@/components/animation/FadeIn'
 import { PageTransition } from '@/components/animation/PageTransition'
 
 export function AboutPage() {
+  usePageTitle('About')
+
   return (
     <PageTransition>
       <div className="max-w-[1200px] mx-auto px-4 md:px-16 py-16">
@@ -19,25 +22,24 @@ export function AboutPage() {
               className="font-display font-bold uppercase tracking-tight-display text-foreground"
               style={{ fontSize: 'clamp(2.5rem, 6vw, 64px)', lineHeight: 1.05 }}
             >
-              A global standard for elite representation.
+              We're an independent talent and production company based in Austin, Texas.
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.2} className="flex flex-col justify-center">
             <div className="space-y-5 font-sans text-body-lg text-muted-foreground leading-relaxed">
+
+
               <p>
-                Talent / Agency represents a curated selection of performers, creators, and public personalities.
-                We work at the intersection of culture, commerce, and creativity — connecting artists with the
-                projects and partners that matter.
+                Talent / Agency is a new and small botique talent and production company, providing representation, management, and production services for our clients. 
+              </p>
+              <p>                
+                We create relationships with venues, brands, and production companies to bring the best talent to the stage and screen. 
+              </p>
+              <p>We are content creators at heart and love collaborating on unique and creative projects.
               </p>
               <p>
-                Our roster spans actors, models, dancers, musicians, comedians, hosts, and digital creators.
-                We represent people, not formats. Our artists are selected for their craft, their distinctiveness,
-                and the quality of their work.
-              </p>
-              <p>
-                For booking and collaboration inquiries, visit any artist's profile page.
-                For agency-level partnerships, reach out directly.
+                Founded by creatives for creatives.
               </p>
             </div>
           </FadeIn>
@@ -69,10 +71,10 @@ export function AboutPage() {
         <FadeIn delay={0.4}>
           <div className="flex gap-4">
             <Link
-              to="/roster"
+              to="/talent"
               className="bg-black text-white px-8 py-3 font-mono text-label-mono tracking-agency uppercase hover:bg-black/85 transition-colors"
             >
-              View Roster
+              View Talent
             </Link>
             <Link
               to="/contact"

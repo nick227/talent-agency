@@ -26,6 +26,19 @@ async function main() {
 
   await server.register(cookie)
 
+  // Allow empty body when Content-Type: application/json is sent (e.g. POST /auth/logout)
+  server.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+    if (!body || (typeof body === 'string' && body.trim() === '')) {
+      return done(null, undefined)
+    }
+    try {
+      done(null, JSON.parse(body as string))
+    } catch (err: any) {
+      err.statusCode = 400
+      done(err, undefined)
+    }
+  })
+
   // File upload support — must be before glue
   await server.register(uploadsPlugin)
 

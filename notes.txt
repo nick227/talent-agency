@@ -2,13 +2,13 @@
 
 ## Concept
 
-TALENT / AGENCY will be a highly visual, chromeless website for a modern roster of represented online artists.
+TALENT / AGENCY will be a highly visual, chromeless website for a modern talent of represented online artists.
 
 The site should not feel like a social network, creator marketplace, casting database, or SaaS product. It should feel like an agency with taste: selective, minimal, image-led, and built around the people it represents.
 
 The main purpose is simple:
 
-**Show the roster. Feature the artists. Provide links. Route serious inquiries through the agency.**
+**Show the talent. Feature the artists. Provide links. Route serious inquiries through the agency.**
 
 ## Brand Direction
 
@@ -23,11 +23,11 @@ or
 
 **TALENT / AGENCY**
 
-The site should use the name as a design object: large type, sharp layouts, simple language, and strong visual contrast. The brand should not over-explain itself. It should feel like a cool office, a roster wall, a gallery, and an editorial platform at the same time.
+The site should use the name as a design object: large type, sharp layouts, simple language, and strong visual contrast. The brand should not over-explain itself. It should feel like a cool office, a talent wall, a gallery, and an editorial platform at the same time.
 
 Suggested positioning line:
 
-**A visual roster of represented online artists.**
+**A visual talent of represented online artists.**
 
 ## Design Direction
 
@@ -50,14 +50,14 @@ Design priorities:
 
 The visual reference should be closer to a fashion label, record label, gallery, film studio, or art magazine than a traditional talent agency website.
 
-The homepage should immediately feel curated. It should open with a strong artist feature, rotating roster visuals, bold names, and a direct path into the roster.
+The homepage should immediately feel curated. It should open with a strong artist feature, rotating talent visuals, bold names, and a direct path into the talent.
 
 ## Core Experience
 
 The site should have a very simple flow:
 
 1. Visitor lands on a striking visual homepage.
-2. Visitor enters the roster.
+2. Visitor enters the talent.
 3. Visitor browses represented artists.
 4. Visitor opens an artist page.
 5. Visitor clicks external links or sends an inquiry through the agency.
@@ -65,15 +65,15 @@ The site should have a very simple flow:
 The site does not need user accounts, public posting, direct messaging, media kit downloads, or creator-platform features.
 
 This is not another place for artists to “build a profile.”
-This is the official roster for people the agency represents.
+This is the official talent for people the agency represents.
 
-## Roster Page
+## Talent Page
 
-The roster page is the heart of the website.
+The talent page is the heart of the website.
 
 It should be image-first, fast, and elegant. Artists should appear in a visual layout that feels curated rather than database-driven.
 
-Possible roster treatments:
+Possible talent treatments:
 
 * full-screen visual grid
 * large portrait tiles
@@ -87,7 +87,7 @@ Possible roster treatments:
 * agency picks
 * currently active / booking highlights
 
-Filtering should exist only as a convenience. The main feeling should still be browsing a curated roster, not operating software.
+Filtering should exist only as a convenience. The main feeling should still be browsing a curated talent, not operating software.
 
 ## Artist Pages
 
@@ -122,11 +122,11 @@ The site should provide practical conveniences without becoming bloated.
 Recommended features:
 
 * clean artist search
-* simple roster filters
+* simple talent filters
 * external link blocks
 * per-artist inquiry button
 * shareable artist URLs
-* featured roster controls
+* featured talent controls
 * admin-editable artist profiles
 * homepage featured artist selection
 * highlight/news posts for recent work
@@ -142,9 +142,9 @@ No creator dashboard energy on the public site.
 ## Main Pages
 
 **Homepage**
-A bold visual introduction to TALENT / AGENCY, featuring the roster, selected artists, and a simple call to view the roster.
+A bold visual introduction to TALENT / AGENCY, featuring the talent, selected artists, and a simple call to view the talent.
 
-**Roster**
+**Talent**
 The central browsing experience for represented artists.
 
 **Artist Profile**
@@ -154,7 +154,7 @@ A minimal, visual profile with selected work, links, short copy, and agency inqu
 A curated section for recent work, bookings, releases, appearances, press, and agency updates.
 
 **About**
-A short agency statement focused on representation, taste, online culture, and the roster.
+A short agency statement focused on representation, taste, online culture, and the talent.
 
 **Contact / Inquiry**
 A direct inquiry form for bookings, collaborations, partnerships, press, and general contact.
@@ -168,16 +168,16 @@ Possible hero copy:
 
 Supporting line:
 
-**A curated roster of creators, performers, and public personalities.**
+**A curated talent of creators, performers, and public personalities.**
 
 Primary actions:
 
-**View Roster**
+**View Talent**
 **Inquire**
 
 Alternative copy:
 
-**A visual roster of represented online artists.**
+**A visual talent of represented online artists.**
 **Built for discovery, links, and serious inquiries.**
 
 ## Visual Tone
@@ -199,12 +199,12 @@ The brand should be simple enough to grow. It can represent online creators now,
 
 ## Final Goal
 
-The final website will give TALENT / AGENCY a sharp, modern presence built around its roster.
+The final website will give TALENT / AGENCY a sharp, modern presence built around its talent.
 
 It will make the agency feel real, curated, and visually strong. It will make represented artists look important. It will give visitors a simple way to explore, follow links, and inquire.
 
 The site should say, without overexplaining:
 
 **These are our artists.
-This is our roster.
+This is our talent.
 Contact us if you want to work with them.**

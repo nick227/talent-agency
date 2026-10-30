@@ -113,7 +113,7 @@ Admin: http://localhost:5173/login → admin@talent.agency / admin123
 
 - [ ] Run `pnpm bootstrap` on fresh checkout
 - [ ] Confirm both servers start cleanly
-- [ ] Verify golden path in browser: home → roster → performer → inquiry
+- [ ] Verify golden path in browser: home → talent → performer → inquiry
 - [ ] Verify admin: login → add performer → upload headshot → publish
 - [ ] `pnpm lint` clean
 - [ ] `pnpm typecheck` clean

@@ -12,6 +12,7 @@ import {
   useAdminReorderMedia,
   useUpload,
 } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { Input } from '@/components/ui/Input'
 import { Textarea } from '@/components/ui/Textarea'
 import { Button } from '@/components/ui/Button'
@@ -64,6 +65,7 @@ export function AdminPerformerEdit() {
   const [uploadProgress, setUploadProgress] = useState<UploadProgress[]>([])
 
   const performer = data?.data
+  usePageTitle(performer?.displayName ? `Edit ${performer.displayName} · Admin` : 'Edit Performer · Admin')
 
   const { register, handleSubmit, formState: { errors, isDirty }, reset, setError } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -329,7 +331,7 @@ export function AdminPerformerEdit() {
               <div className="space-y-3">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input type="checkbox" {...register('isPublished')} className="accent-black w-4 h-4" />
-                  <span className="font-mono text-label-mono tracking-agency uppercase text-foreground">Published — visible on public roster</span>
+                  <span className="font-mono text-label-mono tracking-agency uppercase text-foreground">Published — visible</span>
                 </label>
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input type="checkbox" {...register('isFeatured')} className="accent-black w-4 h-4" />

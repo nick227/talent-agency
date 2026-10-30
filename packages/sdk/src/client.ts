@@ -17,6 +17,16 @@ export function createApiClient(config: ClientConfig) {
     credentials: 'include',
   })
 
+  const emptyBodyMiddleware: Middleware = {
+    async onRequest(req) {
+      if (!req.body) {
+        req.headers.delete('Content-Type')
+      }
+      return req
+    },
+  }
+  client.use(emptyBodyMiddleware)
+
   if (config.getToken) {
     const authMiddleware: Middleware = {
       async onRequest(req) {

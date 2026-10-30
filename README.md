@@ -1,6 +1,6 @@
 # Talent / Agency
 
-A visual roster platform for a talent agency. Dark editorial aesthetic — performers browse publicly, casting directors submit inquiries, agents manage the roster from an admin panel.
+A visual talent platform for a talent agency. Dark editorial aesthetic — performers browse publicly, casting directors submit inquiries, agents manage the talent from an admin panel.
 
 ## Stack
 

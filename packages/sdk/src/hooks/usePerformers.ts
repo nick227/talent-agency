@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery, useMutation } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getApiClient, ApiError, getErrorMessage } from '../client'
 import type { PerformerCategory, SubmitInquiryInput, RegisterInput, UpdateMyProfileInput, AddMediaInput, ReorderMediaInput, UpdateMediaInput } from '../types'
 
@@ -7,11 +7,16 @@ function err(r: { error: unknown; response: Response }) {
 }
 
 export function useRegister() {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (body: RegisterInput) => {
       const r = await getApiClient().POST('/auth/register', { body })
       if (!r.data) throw new ApiError(r.response.status, getErrorMessage(r.error, 'Registration failed'))
       return r.data
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData(['me'], data)
+      queryClient.invalidateQueries({ queryKey: ['me'] })
     },
   })
 }

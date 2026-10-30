@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { FadeIn } from '@/components/animation/FadeIn'
 import { PageTransition } from '@/components/animation/PageTransition'
 import { Button } from '@/components/ui/Button'
@@ -18,6 +19,8 @@ const labelClass = 'block font-mono text-label-mono tracking-agency uppercase mb
 const inputClass = 'w-full bg-transparent border-none p-0 font-sans text-body-md focus:outline-none focus:ring-0 placeholder:text-muted-foreground'
 
 export function ContactPage() {
+  usePageTitle('Contact')
+
   const { register, handleSubmit, formState: { errors, isSubmitSuccessful, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
   })
@@ -44,7 +47,7 @@ export function ContactPage() {
               Contact /<br />Inquiry
             </h1>
             <p className="font-sans text-body-lg text-muted-foreground max-w-sm mb-8">
-              Submit a project brief or roster inquiry. Our response time is typically under 4 hours
+              Submit a project brief or talent inquiry. Our response time is typically under 4 hours
               for verified production houses.
             </p>
             <div className="font-mono text-label-mono tracking-agency space-y-2">

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLogin, useCurrentUser } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { Button } from '@/components/ui/Button'
 import { AuthLayout } from '@/components/layout/AuthLayout'
 
@@ -18,6 +19,7 @@ const labelClass = 'block font-mono text-label-mono tracking-agency uppercase mb
 const inputClass = 'w-full bg-transparent border-none p-0 font-sans text-body-md text-foreground focus:outline-none focus:ring-0 placeholder:text-muted-foreground/50'
 
 export function LoginPage() {
+  usePageTitle('Sign In')
   const navigate = useNavigate()
   const { data: me } = useCurrentUser()
   const login = useLogin()
@@ -64,7 +66,7 @@ export function LoginPage() {
         <p className="font-sans text-body-md text-muted-foreground mt-2">
           New here?{' '}
           <Link to="/register" className="text-foreground font-medium underline underline-offset-4 hover:text-muted-foreground transition-colors">
-            Join the Roster
+            Join Agency
           </Link>
         </p>
       </div>

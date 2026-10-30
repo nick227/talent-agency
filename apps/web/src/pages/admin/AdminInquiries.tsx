@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAdminInquiries, useAdminPerformers } from '@talent/sdk'
 import type { CastingInquiry } from '@talent/sdk'
+import { usePageTitle } from '@/hooks/usePageTitle'
 import { FadeIn } from '@/components/animation/FadeIn'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -47,6 +48,7 @@ function InquiryRow({ inquiry }: { inquiry: CastingInquiry }) {
 }
 
 export function AdminInquiries() {
+  usePageTitle('Admin · Inquiries')
   const [performerFilter, setPerformerFilter] = useState('')
   const { data: performersData } = useAdminPerformers({ limit: 200 })
   const allPerformers = performersData?.pages.flatMap((p) => p.data) ?? []
